@@ -7,7 +7,11 @@ import 'package:fluvel/home.dart';
 
 void main() => runApp(
   MaterialApp(
-    theme: ThemeData(primaryColor: Colors.deepOrange, accentColor: Colors.white),
+    theme: ThemeData(
+        primaryColor: Colors.deepOrange,
+        accentColor: Colors.white,
+        hintColor: Colors.deepOrange,
+    ),
     debugShowCheckedModeBanner: false,
     routes: {
       '/auth/login': (context) => Login(),

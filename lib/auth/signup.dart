@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluvel/api/api.dart';
+import 'dart:convert';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -9,12 +11,39 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+
+
   @override
 
   final formKey = GlobalKey<FormState>();
 
   late String email, password, fullName, phone;
 
+  bool _isLoading = false;
+
+  void handleLogin () async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    var data = {
+      'fullName': fullNameController.text,
+      'email': emailController.text,
+      'phone': phoneController.text,
+      'password': passwordController.text
+    };
+
+    var res = await CallApi().postData(data, 'register');
+    var body = json.decode(res.body);
+
+    print(body);
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +85,7 @@ class _SignUpState extends State<SignUp> {
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
                       keyboardType: TextInputType.text,
-                      initialValue: 'Enter Full Name',
+                      controller: fullNameController,
                       decoration: InputDecoration(
                           labelText: 'Full Name',
                           prefixIcon: Icon(
@@ -77,8 +106,8 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    initialValue: 'Enter Email Address',
                     decoration: InputDecoration(
                       labelText: 'Email Address',
                       prefixIcon: Icon(
@@ -100,7 +129,7 @@ class _SignUpState extends State<SignUp> {
                     padding: EdgeInsets.all(10.0),
                     child: TextFormField(
                       keyboardType: TextInputType.phone,
-                      initialValue: 'Enter Phone Number',
+                      controller: phoneController,
                       decoration: InputDecoration(
                           labelText: 'Phone Number',
                           prefixIcon: Icon(
@@ -122,6 +151,7 @@ class _SignUpState extends State<SignUp> {
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -172,8 +202,10 @@ class _SignUpState extends State<SignUp> {
                       elevation: MaterialStateProperty.all(10.0),
                       padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0))
                     ),
-                    onPressed: (){},
-                    child: Text('Sign Up')
+                    onPressed: (){
+                      handleLogin();
+                    },
+                    child: Text(_isLoading == true ? 'Creating...' : 'Sign Up')
                   ),
                 )
               ],
@@ -184,3 +216,4 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+

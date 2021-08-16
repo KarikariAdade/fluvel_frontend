@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluvel/auth/forgot_password.dart';
 import 'package:fluvel/auth/login.dart';
 import 'package:fluvel/auth/signup.dart';
 import 'package:fluvel/home.dart';
@@ -17,6 +18,7 @@ void main() => runApp(
       '/auth/login': (context) => Login(),
       '/auth/signup': (context) => SignUp(),
       'home': (context) => Home(),
+      '/auth/forgot_password': (context) => ForgotPassword()
     },
     home: SplashScreen(),
   )

@@ -116,7 +116,7 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.only(left: 14.0),
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.pushNamed(context, '/auth/signup');
+                          Navigator.pushNamed(context, '/auth/forgot_password');
                         },
                         child: Text(
                           'Forgot Password?',

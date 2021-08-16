@@ -89,7 +89,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0))
                     ),
                     onPressed: (){},
-                    child: Text('Login'),
+                    child: Text('Reset Password'),
                   ),
                 )
               ],

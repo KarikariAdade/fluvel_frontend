@@ -12,6 +12,16 @@ class _LoginState extends State<Login> {
 
   var formKey = GlobalKey<FormState>();
 
+  late String email, password;
+
+  validateField(){
+    final form = formKey.currentState;
+
+    if(form!.validate() == true){
+      form.save();
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -67,7 +77,6 @@ class _LoginState extends State<Login> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                     ),
-
                   ),
                 )
                 ),
@@ -99,6 +108,46 @@ class _LoginState extends State<Login> {
                     )
                 ),
                 SizedBox(height: 20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only(left: 14.0),
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/auth/signup');
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.0
+                          ),
+                        ),
+                      )
+                    ),
+                    Container(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only(right: 10.0),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(context, '/auth/signup');
+                          },
+                          child: Text(
+                            'New Here?',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.0
+                            ),
+                          ),
+                        )
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.0),
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: ElevatedButton(
@@ -119,20 +168,3 @@ class _LoginState extends State<Login> {
       );
   }
 }
-
-
-// decoration: BoxDecoration(
-// color: Theme.of(context).accentColor,
-// borderRadius: BorderRadius.circular(10.0),
-// border: Border.all(
-// color: Theme.of(context).accentColor,
-// ),
-// boxShadow: [
-// BoxShadow(
-// color: Colors.black,
-// blurRadius: 30.0,
-// spreadRadius: 1.0,
-// offset: Offset(5.0, 5.0)
-// )
-// ]
-// ),
